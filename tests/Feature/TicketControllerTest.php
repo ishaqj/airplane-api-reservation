@@ -132,4 +132,24 @@ class TicketControllerTest extends TestCase
         $this->assertNotEquals($seat, $response->json('seat'));
         $this->assertNotEmpty($response->json('seat'));
     }
+
+    public function test_cant_change_seat_for_cancelled_ticket(): void
+    {
+        $ticket = Ticket::factory()->for(Flight::factory()->create([
+            'flight_number' => 'SK123',
+            'departure_time' => now()->addDays(7)->toDateTimeString(),
+            'source' => 'Arlanda Airport',
+            'destination_airport' => 'London Heathrow Airport',
+        ]))->for(Passenger::factory()->create([
+            'passport_id' => 'A12345678',
+        ]))->create([
+            'seat' => null,
+            'status' => Ticket::STATUS_CANCELLED,
+        ]);
+
+        $response = $this->patchJson(route('tickets.changeSeat', $ticket->id));
+
+        $response->assertStatus(400);
+        $response->assertJsonFragment(['error' => 'Cannot change seat for a cancelled ticket.']);
+    }
 }
