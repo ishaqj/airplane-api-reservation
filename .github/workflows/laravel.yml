@@ -1,0 +1,53 @@
+name: Laravel CI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  laravel-ci:
+    name: Run Laravel CI Jobs
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        job: [phpunit, larastan, pint]
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.2
+          tools: composer
+
+      - name: Install Dependencies
+        run: composer install --prefer-dist --no-progress --no-interaction
+
+      - name: Set up Environment File
+        run: cp .env.example .env
+
+      - name: Generate Application Key
+        run: php artisan key:generate
+
+      - name: Create Database
+        if: ${{ matrix.job == 'phpunit' }}
+        run: touch database/database.sqlite
+
+      - name: Run Tests and Checks
+        run: |
+          if [ "${{ matrix.job }}" == "phpunit" ]; then
+            ./vendor/bin/phpunit;
+          elif [ "${{ matrix.job }}" == "larastan" ]; then
+            ./vendor/bin/phpstan analyse --error-format=github --memory-limit=2G;
+          elif [ "${{ matrix.job }}" == "pint" ]; then
+            ./vendor/bin/pint;
+          fi
+
+      - name: Commit Linted Files
+        if: ${{ matrix.job == 'pint' }}
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 'Pint code style fixes'
