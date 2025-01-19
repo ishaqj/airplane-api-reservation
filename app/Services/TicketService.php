@@ -77,8 +77,6 @@ class TicketService implements TicketServiceInterface
         });
     }
 
-
-
     /**
      * @throws SeatException
      */
