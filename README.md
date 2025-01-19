@@ -16,7 +16,7 @@
 4. Generate the application key.
    ```bash
    php artisan key:generate
-5. Run migrations.
+5. Run migrations and choose "yes" when prompted to create the SQLite database.
    ```bash
    php artisan migrate
 6. Start the development server.
