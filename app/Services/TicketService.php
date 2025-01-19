@@ -68,6 +68,10 @@ class TicketService implements TicketServiceInterface
      */
     public function changeSeat(Ticket $ticket): Ticket
     {
+        if ($ticket->status === Ticket::STATUS_CANCELLED) {
+            throw new TicketStatusException('Cannot change seat for a cancelled ticket.');
+        }
+
         return DB::transaction(function () use ($ticket) {
             $newSeat = $this->generateSeat($ticket->flight);
             $ticket->seat = $newSeat;
@@ -76,8 +80,6 @@ class TicketService implements TicketServiceInterface
             return $ticket;
         });
     }
-
-
 
     /**
      * @throws SeatException

@@ -16,8 +16,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $passenger_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\Flight|null $flight
- * @property-read \App\Models\Passenger|null $passenger
+ * @property-read Flight|null $flight
+ * @property-read Passenger|null $passenger
  *
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Ticket active()
  * @method static \Database\Factories\TicketFactory factory($count = null, $state = [])

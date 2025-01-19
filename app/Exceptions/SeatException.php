@@ -2,4 +2,6 @@
 
 namespace App\Exceptions;
 
-class SeatException extends \Exception {}
+use Exception;
+
+class SeatException extends Exception {}

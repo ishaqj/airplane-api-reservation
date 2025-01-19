@@ -13,7 +13,7 @@ class TicketControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_can_create_ticket()
+    public function test_can_create_ticket(): void
     {
         $data = [
             'flight_number' => $flightNumber = 'SK123',
@@ -38,7 +38,7 @@ class TicketControllerTest extends TestCase
 
     }
 
-    public function test_cant_create_duplicate_ticket()
+    public function test_cant_create_duplicate_ticket(): void
     {
         $data = [
             'flight_number' => 'SK123',
@@ -58,7 +58,7 @@ class TicketControllerTest extends TestCase
         $response2->assertJsonFragment(['error' => 'A ticket already exists for this flight and passenger.']);
     }
 
-    public function test_can_cancel_ticket()
+    public function test_can_cancel_ticket(): void
     {
         $ticket = Ticket::factory()->for(Flight::factory()->create([
             'flight_number' => $flightNumber = 'SK123',
@@ -85,7 +85,7 @@ class TicketControllerTest extends TestCase
         ]);
     }
 
-    public function test_cant_cancel_cancelled_ticket()
+    public function test_cant_cancel_cancelled_ticket(): void
     {
         $ticket = Ticket::factory()->for(Flight::factory()->create([
             'flight_number' => 'SK123',
@@ -105,7 +105,7 @@ class TicketControllerTest extends TestCase
         $response->assertJsonFragment(['error' => 'Ticket is already cancelled.']);
     }
 
-    public function test_can_change_seat()
+    public function test_can_change_seat(): void
     {
         $ticket = Ticket::factory()->for(Flight::factory()->create([
             'flight_number' => $flightNumber = 'SK123',

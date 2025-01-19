@@ -2,4 +2,6 @@
 
 namespace App\Exceptions;
 
-class ExistingTicketException extends \Exception {}
+use Exception;
+
+class ExistingTicketException extends Exception {}

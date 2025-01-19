@@ -1,0 +1,39 @@
+{
+    "exclude": [
+        "database/migrations"
+    ],
+    "notName": [
+        "*.blade.php"
+    ],
+    "preset": "laravel",
+    "rules": {
+        "align_multiline_comment": true,
+        "array_indentation": true,
+        "array_syntax": true,
+        "blank_line_after_namespace": true,
+        "blank_line_after_opening_tag": true,
+        "combine_consecutive_issets": true,
+        "combine_consecutive_unsets": true,
+        "concat_space": true,
+        "declare_parentheses": true,
+        "fully_qualified_strict_types": true,
+        "global_namespace_import": {
+            "import_classes": true,
+            "import_constants": true,
+            "import_functions": true
+        },
+        "is_null": true,
+        "lambda_not_used_import": true,
+        "modernize_strpos": true,
+        "new_with_braces": true,
+        "no_empty_comment": true,
+        "not_operator_with_space": false,
+        "phpdoc_separation": false,
+        "ordered_traits": true,
+        "simplified_if_return": true,
+        "ternary_to_null_coalescing": true,
+        "trim_array_spaces": true,
+        "void_return": true,
+        "not_operator_with_successor_space": false
+    }
+}

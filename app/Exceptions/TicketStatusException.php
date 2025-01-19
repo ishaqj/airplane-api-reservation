@@ -2,4 +2,6 @@
 
 namespace App\Exceptions;
 
-class TicketStatusException extends \Exception {}
+use Exception;
+
+class TicketStatusException extends Exception {}
